@@ -4,7 +4,7 @@
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IntZam's LauncherHTML</title>
+    <title>IntZam'S LauncherHTML</title>
     <style>
         * {
             margin: 0;
@@ -109,9 +109,25 @@
             transition: opacity 0.3s ease-in-out;
         }
 
+        #top-right-text {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            color: #000;
+        }
+
+        #launcher-footnote {
+            margin-top: 10px;
+            font-size: 12px;
+            color: #555;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
+    <div id="top-right-text">Welcome! To use the launcher press Win + Shift + L</div>
     <div id="launcher">
         <div id="launching-message" style="display: none;"></div>
         <div id="launcher-header">
@@ -121,6 +137,7 @@
         <div id="launcher-body">
             <input type="text" id="command-input" placeholder="Type 'spotify', 'winamp', 'github', 'youtube'">
             <button class="button" id="launch-btn">serve me</button>
+            <div id="launcher-footnote">If you want to search something, just type 'ara' and your query</div>
         </div>
     </div>
 
@@ -166,7 +183,7 @@
 
         function processCommand() {
             const command = commandInput.value.toLowerCase().trim();
-            if (command.startsWith('ara ')) {
+            if (command.startsWith('araara ')) {
                 const query = command.slice(7).trim();
                 window.open(`https://www.google.com/search?q=${encodeURIComponent(query)}`, '_blank');
             } else {
