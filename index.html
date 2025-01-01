@@ -105,10 +105,10 @@ body {
     height: 100vh;
     overflow: hidden;
     position: relative;
-    background-image: url('background-image.gif'); /* Update this line */
-    background-size: cover; /* Ensures the image covers the entire viewport */
-    background-position: center center; /* Centers the image */
-    background-attachment: fixed; /* Keeps the image fixed while scrolling */
+    background-image: url('background-image.gif'); 
+    background-size: cover; 
+    background-position: center center; 
+    background-attachment: fixed; 
 }
 
 
@@ -144,10 +144,9 @@ body {
         const commandInput = document.getElementById('command-input');
         const launchButton = document.getElementById('launch-btn');
 
-        // Open/close launcher window when "Window + Shift + L" is pressed
         document.addEventListener('keydown', (e) => {
             if (e.key.toLowerCase() === 'l' && e.shiftKey && (e.metaKey || e.ctrlKey)) {
-                e.preventDefault(); // Prevent "L" from being typed into the input box
+                e.preventDefault(); 
 
                 if (launcher.style.display === 'block') {
                     launcher.style.opacity = '0';
@@ -163,7 +162,6 @@ body {
             }
         });
 
-        // Close launcher window with fade-out effect when "X" button is clicked
         closeLauncher.addEventListener('click', () => {
             launcher.style.opacity = '0';
             setTimeout(() => {
@@ -172,7 +170,6 @@ body {
             }, 300);
         });
 
-        // Handle input and open corresponding apps/websites when "Enter" is pressed
         commandInput.addEventListener('keydown', (e) => {
             if (e.key === 'Enter') {
                 const command = commandInput.value.toLowerCase().trim();
@@ -193,11 +190,10 @@ body {
                         alert('Unknown command');
                         break;
                 }
-                launcher.style.display = 'none'; // Close the launcher after launch
+                launcher.style.display = 'none'; 
             }
         });
 
-        // Handle input and open corresponding apps/websites when "Launch" button is clicked
         launchButton.addEventListener('click', () => {
             const command = commandInput.value.toLowerCase().trim();
             switch (command) {
@@ -217,7 +213,7 @@ body {
                     alert('Unknown command');
                     break;
             }
-            launcher.style.display = 'none'; // Close the launcher after launch
+            launcher.style.display = 'none';
         });
 
 const launcherInput = document.getElementById('launcher-input');
