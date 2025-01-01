@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desktop OS Theme</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #ffffff;
+            font-family: 'JetBrains Mono', monospace;
+            color: #000000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        #launcher {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 350px;
+            background-color: #f0f0f0;
+            border: 5px solid #000000;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        #launcher-header {
+            color: #000000;
+            font-size: 24px;
+            text-align: center;
+        }
+
+        #launcher-body {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        #launcher input {
+            width: 80%;
+            padding: 10px;
+            margin-top: 15px;
+            background-color: #ffffff;
+            border: 2px solid #000000;
+            border-radius: 4px;
+            color: #000000;
+            font-size: 14px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .button {
+            width: 80%;
+            padding: 10px;
+            margin-top: 10px;
+            background-color: #ffffff;
+            border: 2px solid #000000;
+            border-radius: 4px;
+            color: #000000;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .button:hover {
+            background-color: #000000;
+            color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #e06c75;
+            cursor: pointer;
+        }
+
+        .close-btn.fade-out {
+            opacity: 0;
+        }
+
+
+body {
+    background-color: #ffffff;
+    font-family: 'JetBrains Mono', monospace;
+    color: #000000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+    background-image: url('background-image.gif'); /* Update this line */
+    background-size: cover; /* Ensures the image covers the entire viewport */
+    background-position: center center; /* Centers the image */
+    background-attachment: fixed; /* Keeps the image fixed while scrolling */
+}
+
+
+#launching-message {
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #000;
+    text-align: center;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+    </style>
+</head>
+<body>
+    <div id="launcher">
+<div id="launching-message" style="display: none;"></div>
+        <div id="launcher-header">
+            welcome, what's on the menu today?
+            <span class="close-btn" id="close-launcher">X</span>
+        </div>
+        <div id="launcher-body">
+            <input type="text" id="command-input" placeholder="Type 'spotify', 'winamp', 'github', 'youtube'">
+            <button class="button" id="launch-btn">serve me</button>
+        </div>
+    </div>
+
+    <script>
+        const launcher = document.getElementById('launcher');
+        const closeLauncher = document.getElementById('close-launcher');
+        const commandInput = document.getElementById('command-input');
+        const launchButton = document.getElementById('launch-btn');
+
+        // Open/close launcher window when "Window + Shift + L" is pressed
+        document.addEventListener('keydown', (e) => {
+            if (e.key.toLowerCase() === 'l' && e.shiftKey && (e.metaKey || e.ctrlKey)) {
+                e.preventDefault(); // Prevent "L" from being typed into the input box
+
+                if (launcher.style.display === 'block') {
+                    launcher.style.opacity = '0';
+                    setTimeout(() => {
+                        launcher.style.display = 'none';
+                        launcher.style.opacity = '1';
+                    }, 300);
+                } else {
+                    launcher.style.display = 'block';
+                    launcher.style.opacity = '1';
+                    commandInput.focus();
+                }
+            }
+        });
+
+        // Close launcher window with fade-out effect when "X" button is clicked
+        closeLauncher.addEventListener('click', () => {
+            launcher.style.opacity = '0';
+            setTimeout(() => {
+                launcher.style.display = 'none';
+                launcher.style.opacity = '1';
+            }, 300);
+        });
+
+        // Handle input and open corresponding apps/websites when "Enter" is pressed
+        commandInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                const command = commandInput.value.toLowerCase().trim();
+                switch (command) {
+                    case 'spotify':
+                        window.location.href = 'spotify:app:home';
+                        break;
+                    case 'start my music server':
+                        window.location.href = 'http://127.0.0.1:5001/';
+                        break;
+                    case 'github':
+                        window.open('https://github.com', '_blank');
+                        break;
+                    case 'youtube':
+                        window.open('https://www.youtube.com', '_blank');
+                        break;
+                    default:
+                        alert('Unknown command');
+                        break;
+                }
+                launcher.style.display = 'none'; // Close the launcher after launch
+            }
+        });
+
+        // Handle input and open corresponding apps/websites when "Launch" button is clicked
+        launchButton.addEventListener('click', () => {
+            const command = commandInput.value.toLowerCase().trim();
+            switch (command) {
+                case 'spotify':
+                    window.location.href = 'spotify:app:home';
+                    break;
+                case 'winamp':
+                    window.location.href = 'winamp://';
+                    break;
+                case 'github':
+                    window.open('https://github.com', '_blank');
+                    break;
+                case 'youtube':
+                    window.open('https://www.youtube.com', '_blank');
+                    break;
+                default:
+                    alert('Unknown command');
+                    break;
+            }
+            launcher.style.display = 'none'; // Close the launcher after launch
+        });
+
+const launcherInput = document.getElementById('launcher-input');
+const launchingMessage = document.getElementById('launching-message');
+
+launcherInput.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+        const command = launcherInput.value.toLowerCase();
+        if (command === 'youtube') {
+            launchingMessage.textContent = 'Launching YouTube...';
+        } else if (command === 'winamp') {
+            launchingMessage.textContent = 'Launching Winamp...';
+        }
+        // Add more conditions as needed
+        launchingMessage.style.display = 'block';
+        launchingMessage.style.opacity = '1';
+
+        // Add logic to open the app after a short delay
+        setTimeout(() => {
+            launchingMessage.style.opacity = '0';
+            setTimeout(() => {
+                launchingMessage.style.display = 'none';
+            }, 300);
+            // Add the redirection logic here
+        }, 2000); // Time to show the launching message
+    }
+});
+
+
+
+    </script>
+</body>
+</html>
